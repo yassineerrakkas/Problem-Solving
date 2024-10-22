@@ -18,10 +18,11 @@ class Solution {
         if (root == null) return 0;
         return helper(root,root.val);
     }
-    public int helper(TreeNode node, int rootVal){
-        if(node == null) return 0;
-        int newVal = Math.max(node.val,rootVal);
-        if(node.val < rootVal) return  helper(node.right,newVal) + helper(node.left,newVal);
-        else return helper(node.right,newVal) + helper(node.left,newVal) + 1;
+    public int helper(TreeNode node, int maxVal){
+        int c = 0;
+        if(node.val >= maxVal) c++;
+        if (node.left != null) c += helper(node.left, Math.max(maxVal,node.val));
+        if (node.right != null) c += helper(node.right, Math.max(maxVal,node.val));
+        return c;
     }
 }
