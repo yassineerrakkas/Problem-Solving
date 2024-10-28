@@ -1,21 +1,22 @@
 class Solution {
     public int longestSquareStreak(int[] nums) {
-        Set<Integer> set = new HashSet();
-        for(int num : nums) set.add(num);
+        Map<Integer,Boolean> map = new HashMap();
         int res = -1;
         for(int num : nums){
-            if (!set.contains(num / num) || num == 1) {
-                int count = 1;
-                int temp = num;
-                while (true) {
-                    long square = (long) temp * temp;
-                    if (square > Integer.MAX_VALUE || !set.contains((int) square)) break;
-
-                    count++;
-                    temp = (int) square;
-                }
-                res = Math.max(res, count);
+            map.put(num,true);
+        }
+        int i = 0;
+        for(int num : nums) {
+            int count = 1;
+            long temp = num;
+            while(temp*temp < Integer.MAX_VALUE && map.containsKey((int)(temp*temp))) {
+                count++;
+                temp *= temp;
             }
+            if(count != 0){
+                res = Math.max(count, res);
+            }
+            i++;
         }
         return res == 1 ? -1 : res;
     }
