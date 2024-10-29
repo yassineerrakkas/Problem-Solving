@@ -12,12 +12,17 @@ class Solution {
         }
         return res;
     }
-    int memoSolve(int i, int j){
-        if(dp[i][j] != null) return dp[i][j];
+    int memoSolve(int i, int j) {
+        if (dp[i][j] != null) return dp[i][j]; // Assuming dp is initialized with -1
         int res = 0;
-        if(i-1>=0 && j+1<n && grid[i-1][j+1] > grid[i][j]) res = 1 + memoSolve(i-1, j+1);
-        if(j+1<n && grid[i][j+1] > grid[i][j]) res = Math.max(res, 1 + memoSolve(i, j+1));
-        if(i+1<m && j+1<n && grid[i+1][j+1] > grid[i][j]) res = Math.max(res, 1 + memoSolve(i+1, j+1));
+        int[][] directions = {{-1, 1}, {0, 1}, {1, 1}};
+        for (int[] dir : directions) {
+            int ni = i + dir[0], nj = j + dir[1];
+            if (ni >= 0 && ni < m && nj < n && grid[ni][nj] > grid[i][j]) {
+                res = Math.max(res, 1 + memoSolve(ni, nj));
+            }
+        }
         return dp[i][j] = res;
     }
+
 }
