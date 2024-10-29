@@ -14,7 +14,7 @@ class Solution {
     }
     int memoSolve(int i, int j){
         if(dp[i][j] != null) return dp[i][j];
-        var res = 0;
+        int res = 0;
         if(i-1>=0 && j+1<n && grid[i-1][j+1] > grid[i][j]) res = 1 + memoSolve(i-1, j+1);
         if(j+1<n && grid[i][j+1] > grid[i][j]) res = Math.max(res, 1 + memoSolve(i, j+1));
         if(i+1<m && j+1<n && grid[i+1][j+1] > grid[i][j]) res = Math.max(res, 1 + memoSolve(i+1, j+1));
