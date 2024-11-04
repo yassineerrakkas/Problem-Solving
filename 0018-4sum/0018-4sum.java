@@ -22,7 +22,7 @@ class Solution {
             int l = start, r = nums.length-1;
             while(l<r){
                 if(nums[l] + nums[r] > target) r--;
-                else if ((long)(nums[l] + nums[r]) < target) l++;
+                else if ((nums[l] + nums[r]) < target) l++;
                 else{
                     List<Integer> temp = new ArrayList(list);
                     temp.add(nums[l]);
