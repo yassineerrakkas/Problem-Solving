@@ -1,24 +1,22 @@
 class Solution {
     public boolean canSortArray(int[] nums) {
-        List<Integer> mins = new ArrayList();
-        List<Integer> maxs = new ArrayList();
+        int i = 0;
+        int prevMax = 0;
         int n = nums.length;
-        int min = nums[0] , max = nums[0];
-        for(int i = 0; i < n-1; i++){
-            if(Integer.bitCount(nums[i]) == Integer.bitCount(nums[i+1])){
-                min = Math.min(min,nums[i]);
-                max = Math.max(max,nums[i]);
-            }else{
-                mins.add(Math.min(min,nums[i]));
-                maxs.add(Math.max(max,nums[i]));
-                min = nums[i+1];
-                max = nums[i+1];
+        while(i < n){
+            int c = Integer.bitCount(nums[i]);
+            int j = i + 1;
+            int min = nums[i], max = nums[i];
+            while(j < n && c == Integer.bitCount(nums[j])){
+                min = Math.min(min,nums[j]);
+                max = Math.max(max,nums[j]);
+                j++;
             }
-        }
-        mins.add(Math.min(min,nums[n-1]));
-        maxs.add(Math.max(max,nums[n-1]));
-        for(int i = 0; i<mins.size()-1; i++){
-            if(maxs.get(i) > mins.get(i+1)) return false;
+            if(min < prevMax) return false;
+            else{
+                i = j;
+                prevMax = max;
+            }
         }
         return true;
     }
