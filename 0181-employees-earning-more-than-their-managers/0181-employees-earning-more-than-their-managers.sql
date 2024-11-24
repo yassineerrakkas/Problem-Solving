@@ -1,6 +1,6 @@
 -- Write your PostgreSQL query statement below
-SELECT name Employee
+SELECT x.name as Employee
 FROM Employee x
-WHERE salary > (SELECT salary
-                FROM Employee y
-                WHERE x.managerId = y.id)
+LEFT JOIN Employee y
+ON x.managerId = y.id
+WHERE x.salary > y.salary;
